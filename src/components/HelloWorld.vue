@@ -1,58 +1,175 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <v-container>
+    <div class="container-cols">
+      <div v-for="(image, index) in images" :key="index" md="auto" class="img-container">
+        <v-lazy
+          :options="{
+            threshold: .5
+          }"
+          class="lazy-container"
+          transition="fade-transition">
+          <v-dialog
+            width="500"
+          >
+
+            <template>
+              <v-carousel v-model="model" hide-delimiters>
+                <v-carousel-item
+                  v-for="(img, i) in images"
+                  :key="i"
+                >
+
+                  <v-sheet
+                    color="#ffffff"
+                    height="100%"
+                    tile
+                  >
+                    <v-row
+                      class="fill-height"
+                      align="center"
+                      justify="center"
+                    >
+                    
+                      <v-img
+                        outlined 
+                        tile 
+                        :src="img"></v-img>
+
+                    </v-row>
+
+                  </v-sheet>
+
+                </v-carousel-item>
+              </v-carousel>
+            </template>
+
+            <template v-slot:activator="{ on, attrs }">
+        
+              <v-img 
+                class="feed-imgs"
+                outlined 
+                tile 
+                v-on:click="model = index"
+                :src="image" 
+                v-bind="attrs"
+                v-on="on"></v-img>
+
+            </template>
+          </v-dialog>
+        </v-lazy>
+      </div>
+    </div>
+
+  </v-container>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  export default {
+    name: 'HelloWorld',
+
+    data: () => {
+      return {
+        model: 0,
+        images: [
+          require("../assets/photos/v10.jpg"),
+          require("../assets/photos/v1.jpeg"),
+          require("../assets/photos/v7.jpg"),
+          require("../assets/photos/v2.jpeg"),
+          require("../assets/photos/v3.jpeg"),
+          require("../assets/photos/v4.jpeg"),
+          require("../assets/photos/v9.jpg"),
+          require("../assets/photos/v5.jpeg"),
+          require("../assets/photos/v8.jpg"),
+          require("../assets/photos/v11.jpeg"),
+          require("../assets/photos/v12.jpeg"),
+          require("../assets/photos/v13.jpeg"),
+          require("../assets/photos/v14.jpeg"),
+          require("../assets/photos/v15.jpeg"),
+          require("../assets/photos/v16.jpeg"),
+          require("../assets/photos/v17.jpeg"),
+          require("../assets/photos/v18.jpeg"),
+          require("../assets/photos/v19.jpeg"),
+          require("../assets/photos/v20.jpeg"),
+          require("../assets/photos/v21.jpeg"),
+          require("../assets/photos/v22.jpeg"),
+          require("../assets/photos/v23.jpeg"),
+          require("../assets/photos/v24.jpeg"),
+          require("../assets/photos/v25.jpeg"),
+          require("../assets/photos/v26.jpeg"),
+          require("../assets/photos/v27.jpeg"),
+          require("../assets/photos/v28.jpeg"),
+          require("../assets/photos/v29.jpeg"),
+          require("../assets/photos/v30.jpeg"),
+          require("../assets/photos/v31.jpeg"),
+          require("../assets/photos/v32.jpeg"),
+          require("../assets/photos/v33.jpeg"),
+          require("../assets/photos/v34.jpeg"),
+          require("../assets/photos/v35.jpeg"),
+          require("../assets/photos/v36.jpeg"),
+          ],
+      };
+    }
   }
-}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+
+  .container-cols {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px;
+  }
+
+  v-carousel-item > img {
+    margin: auto;
+  }
+
+  .img-container {
+    margin: 5px auto 5px auto !important;
+    width: 30%;
+    display: flex;
+  }
+
+  .img-container > div {
+    margin: auto;
+  }
+
+  .feed-imgs {
+    width: 21.3rem;
+    border-radius: 2.5px;
+  }
+
+  v-sheet {
+    background: white;
+    display: flex;
+    margin: auto;
+  }
+
+  @media only screen and (min-width: 769px) {
+    .feed-imgs:hover {
+      animation-name: grow;
+      animation-duration: 300ms;
+      width: 23rem;
+    }
+  
+  }
+
+  @media only screen and (max-width: 768px) {
+    .feed-imgs {
+      width: 7.5rem;
+    }
+  }
+
+  @keyframes grow {
+    from {
+      box-shadow: initial;
+      width: 21.3rem;
+    }
+
+    to {
+      width: 23rem;
+    }
+
+  }
+
 </style>
